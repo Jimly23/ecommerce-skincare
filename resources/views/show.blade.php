@@ -68,9 +68,9 @@
                 </p>
 
                 <!-- Aksi: Kuantitas & ATC -->
-                <div class="flex flex-col sm:flex-row gap-4 mb-4 pt-6 border-t border-rose-100">
+                <div class="sm:flex sm:flex-row gap-4 mb-4 pt-6 border-t border-rose-100">
                     <!-- Tombol Tambah ke Keranjang -->
-                    <a href="{{ route('cart.add', $product->id) }}" class="flex-1 bg-rose-50 text-pink-600 h-14 rounded-full font-medium hover:bg-pink-50 transition border border-rose-100 flex items-center justify-center gap-2">
+                    <a href="{{ route('cart.add', $product->id) }}" class="flex-1 bg-rose-50 text-pink-600 h-14 rounded-full font-medium hover:bg-pink-50 transition border border-rose-100 flex items-center justify-center gap-2 mb-2 sm:mb-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                         Tambahkan ke Keranjang
                     </a>

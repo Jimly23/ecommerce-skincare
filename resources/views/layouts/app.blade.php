@@ -125,10 +125,45 @@
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button class="text-zinc-600 hover:text-pink-500">
+                    <button onclick="toggleMobileMenu()" class="text-zinc-600 hover:text-pink-500 focus:outline-none">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu (hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-rose-50">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-zinc-600 hover:text-pink-500 hover:bg-rose-50 transition">Home</a>
+                <a href="{{ route('shop.index') }}" class="block px-3 py-2 rounded-md text-base font-medium text-zinc-600 hover:text-pink-500 hover:bg-rose-50 transition">Shop</a>
+                <a href="{{ route('categories.index') }}" class="block px-3 py-2 rounded-md text-base font-medium text-zinc-600 hover:text-pink-500 hover:bg-rose-50 transition">Kategori</a>
+                <a href="{{ route('cart') }}" class="flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-zinc-600 hover:text-pink-500 hover:bg-rose-50 transition">
+                    Keranjang
+                    @auth
+                        @php $mCartCount = \App\Models\Cart::where('user_id', auth()->id())->count(); @endphp
+                        @if($mCartCount > 0)
+                            <span class="bg-pink-500 text-white text-xs font-bold px-2 rounded-full">{{ $mCartCount }}</span>
+                        @endif
+                    @endauth
+                </a>
+                @guest
+                    <a href="{{ route('login') }}" class="block px-3 py-2 rounded-md text-base font-medium text-pink-500 hover:text-pink-600 hover:bg-rose-50 transition mt-2">Masuk</a>
+                @endguest
+                @auth
+                    <div class="border-t border-rose-50 mt-2 pt-2">
+                        <div class="px-3 py-2 mb-1">
+                            <p class="text-xs text-zinc-500 font-light">Halo,</p>
+                            <p class="text-sm font-medium text-zinc-800">{{ Auth::user()->name }}</p>
+                        </div>
+                        <a href="{{ route('profile') }}" class="block px-3 py-2 rounded-md text-base font-medium text-zinc-600 hover:text-pink-500 hover:bg-rose-50 transition">Profil Saya</a>
+                        <a href="/orders" class="block px-3 py-2 rounded-md text-base font-medium text-zinc-600 hover:text-pink-500 hover:bg-rose-50 transition">Pesanan Saya</a>
+                        <form action="{{ route('logout') }}" method="POST" class="block w-full">
+                            @csrf
+                            <button type="submit" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-500 hover:bg-red-50 transition">Keluar</button>
+                        </form>
+                    </div>
+                @endauth
             </div>
         </div>
     </nav>
@@ -186,5 +221,12 @@
             &copy; 2026 AuraGlow Cosmetics. Hak Cipta Dilindungi.
         </div>
     </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>

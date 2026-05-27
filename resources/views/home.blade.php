@@ -195,12 +195,12 @@
             <p class="text-zinc-500 font-light max-w-2xl mx-auto">Pilihan favorit pelanggan untuk mewujudkan kilau alami dan nutrisi kulit yang sempurna setiap hari.</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-x-8 sm:gap-y-12">
             
             @foreach($bestsellers as $product)
             <!-- Produk Card -->
             <div class="group cursor-pointer flex flex-col">
-                <div class="relative bg-rose-50/50 rounded-3xl overflow-hidden mb-4 h-80 flex items-center justify-center p-4">
+                <div class="relative bg-rose-50/50 rounded-2xl sm:rounded-3xl overflow-hidden mb-4 h-48 sm:h-80 flex items-center justify-center p-2 sm:p-4">
                     @if(is_array($product->images) && count($product->images) > 0)
                         <img src="{{ Storage::url($product->images[0]) }}" alt="{{ $product->name }}" class="w-full h-full object-cover rounded-2xl shadow-sm transition duration-700 group-hover:scale-105">
                     @else
@@ -229,11 +229,11 @@
                             </div>
                             <span class="text-xs text-zinc-500">({{ $product->rating ?? '0' }}/5)</span>
                         </div>
-                        <h3 class="text-lg text-zinc-800 font-medium group-hover:text-pink-500 transition line-clamp-1"><a href="{{ route('shop.show', $product->id) }}">{{ $product->name }}</a></h3>
-                        <p class="text-sm text-zinc-500 mb-2 font-light">Kecantikan</p>
+                        <h3 class="text-sm sm:text-lg text-zinc-800 font-medium group-hover:text-pink-500 transition line-clamp-1"><a href="{{ route('shop.show', $product->id) }}">{{ $product->name }}</a></h3>
+                        <p class="text-xs sm:text-sm text-zinc-500 mb-2 font-light">Kecantikan</p>
                     </div>
                     <div class="mt-auto flex items-center gap-2">
-                        <span class="text-lg font-semibold text-zinc-800">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
+                        <span class="text-sm sm:text-lg font-semibold text-zinc-800">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
                     </div>
                 </div>
             </div>

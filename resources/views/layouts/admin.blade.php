@@ -30,9 +30,11 @@
     </style>
 </head>
 <body class="bg-rose-50/20 text-zinc-800 antialiased font-light flex h-screen overflow-hidden">
+    <!-- Overlay for mobile -->
+    <div class="fixed inset-0 bg-zinc-900/50 z-40 hidden md:hidden backdrop-blur-sm transition-opacity" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
     <!-- Sidebar -->
-    <aside class="w-64 bg-white border-r border-rose-100 flex flex-col">
+    <aside id="adminSidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-rose-100 flex flex-col transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300 ease-in-out">
         <div class="h-20 flex items-center px-6 border-b border-rose-100/50">
             <a href="{{ route('admin.dashboard') }}" class="text-2xl font-semibold tracking-widest text-zinc-800">
                 Admin<span class="text-pink-500">Panel</span>
@@ -78,10 +80,15 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-grow flex flex-col overflow-hidden">
+    <main class="flex-grow flex flex-col overflow-hidden w-full">
         <!-- Topbar -->
-        <header class="h-20 bg-white/80 backdrop-blur-md border-b border-rose-100 px-8 flex items-center justify-between">
-            <h2 class="text-xl font-medium text-zinc-800">@yield('header_title')</h2>
+        <header class="h-20 bg-white/80 backdrop-blur-md border-b border-rose-100 px-4 md:px-8 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <button onclick="toggleSidebar()" class="md:hidden w-10 h-10 flex items-center justify-center text-zinc-600 hover:text-pink-500 hover:bg-rose-50 rounded-full transition focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <h2 class="text-xl font-medium text-zinc-800 line-clamp-1">@yield('header_title')</h2>
+            </div>
             <div class="flex items-center space-x-4">
                 <div class="flex items-center space-x-2">
                     <div class="w-10 h-10 rounded-full bg-pink-100 text-pink-500 flex items-center justify-center font-bold">
@@ -105,5 +112,14 @@
             @yield('content')
         </div>
     </main>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('adminSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>

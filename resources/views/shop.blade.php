@@ -25,6 +25,9 @@
 
         <div class="flex flex-col lg:flex-row gap-8">
             <form action="{{ route('shop.index') }}" method="GET" id="filter-form" class="w-full lg:w-1/4">
+                @if(request('search'))
+                    <input type="hidden" name="search" value="{{ request('search') }}">
+                @endif
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-rose-100">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-lg font-medium text-zinc-800">Filter</h3>

@@ -14,6 +14,13 @@ Route::get('/shop', function (\Illuminate\Http\Request $request) {
     $query = App\Models\Product::query();
     $selectedCategories = $request->input('categories', []);
     
+    if ($request->filled('search')) {
+        $query->where(function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->search . '%')
+              ->orWhere('description', 'like', '%' . $request->search . '%');
+        });
+    }
+    
     if ($request->has('category') && !empty($request->category)) {
         $selectedCategories = array_merge($selectedCategories, (array) $request->category);
     }
